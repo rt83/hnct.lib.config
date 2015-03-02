@@ -1,0 +1,30 @@
+/**
+ * Project hnct.lib.config
+ * @author ryan
+ */
+version = "1.0.0"
+group = "hnct.lib"
+
+ext.scalaVersion = "2.11.1"
+
+def strip_minor(version) {
+	List arr = version.trim().tokenize(".")
+	arr.remove(arr.size()-1)
+	
+	return arr.join(".")
+}
+
+dependencies {
+	
+	// jackson
+	compile 'com.fasterxml.jackson.core:jackson-core:2.5.1'
+	compile 'com.fasterxml.jackson.core:jackson-databind:2.5.1'
+	compile 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.5.1'
+	compile 'com.fasterxml.jackson.module:jackson-module-scala_2.11:2.5.1'
+
+	
+	// use strip minor to get the correct version of json4s for the corresponding scala version
+	//compile "org.json4s:json4s-native_${strip_minor(scalaVersion)}:3.2.11"
+	//compile "org.json4s:json4s-jackson_${strip_minor(scalaVersion)}:3.2.11"
+	
+}

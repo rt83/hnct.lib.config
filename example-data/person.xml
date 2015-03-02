@@ -1,0 +1,8 @@
+<person>
+	<name>Bird</name>
+	<age>20</age>
+	<contacts>
+		<contact>a</contact>
+		<contact>b12</contact>
+	</contacts>
+</person>
