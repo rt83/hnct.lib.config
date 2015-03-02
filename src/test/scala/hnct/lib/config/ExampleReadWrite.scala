@@ -36,11 +36,12 @@ object ExampleReadWrite {
 		// need to add the folder example-data on the classpath
 		val p : Option[Person] = Configuration.read(Some("person.json"), None, classOf[Person], ConfigurationFormat.JSON)
 		
-		println(p.get.name)
+		// avoid checking None by using map
+		p.map { x1 => println(x1.name) }
 		
 		val p1 : Option[XmlPerson] = Configuration.read(Some("person.xml"), None, classOf[XmlPerson], ConfigurationFormat.XML)
 		
-		p1.get.getContact.foreach { println(_) }
+		p1. map { _.getContact.foreach { println(_) } }
 		
 		Configuration.write("person1.json", p1, false)
 	}
