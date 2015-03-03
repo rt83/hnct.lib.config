@@ -7,13 +7,6 @@ group = "hnct.lib"
 
 ext.scalaVersion = "2.11.1"
 
-def strip_minor(version) {
-	List arr = version.trim().tokenize(".")
-	arr.remove(arr.size()-1)
-	
-	return arr.join(".")
-}
-
 dependencies {
 	
 	// jackson
