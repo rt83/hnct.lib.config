@@ -2,18 +2,15 @@ package hnct.lib.config
 
 import java.io.File
 import java.io.PrintWriter
-
 import com.fasterxml.jackson.databind._
 import com.fasterxml.jackson.dataformat.xml._
 import com.fasterxml.jackson.module.scala._
-
-// bring the implicit conversion into scope
 import ConfigurationFormat._
-
-import java.net.URISyntaxException;
+import java.net.URISyntaxException
 import java.net.URL;
+import hnct.lib.utility.Logable
 
-object Configuration {
+object Configuration extends Logable {
 	
 	def read[T, FormatType <: ConfigurationFormat](defaultFileName : Option[String], systemVar : Option[String], resultClass : Class[T], format : FormatType) : Option[T] = {
 		
@@ -30,7 +27,12 @@ object Configuration {
 		}
 			
 		// format.readValue is possible because of implicit conversion
-		if (f.exists()) Some(format.readValue(f, resultClass))
+		if (f.exists()) {
+			
+			log.info("File exist! Trying to read the file!")
+			
+			Some(format.readValue(f, resultClass))
+		}
 		else None
 	}
 	
@@ -42,21 +44,36 @@ object Configuration {
 	
 	private def fromName(name : String) : File = {
 		
+		log.info("Creating configuration file {}", name)
+		
 		var f = new File(name)
 		
 		if (!f.exists()) {	// file not exist, search in class path
+			log.info("File doesn't exist. Look on class path!")
+			
 			val url = Thread.currentThread().getContextClassLoader().getResource(name);
 			
-			if (url == null) return f;
+			if (url == null) {
+				
+				log.info("Unable to find the file {} both on disk and on class path!", name)
+				
+				return f;
+				
+			}
 			
 			try {
 				
 				val path = url.toURI().getPath();
 				
+				log.info("Found the file path {}", path)
+				
 				new File(path)
 				
 			} catch { 
-				case e : URISyntaxException => f
+				case e : URISyntaxException => {
+					log.error("Inferring file path from classpath not successful", e)
+					f	
+				}
 			}
 		} else f
 
