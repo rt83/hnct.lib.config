@@ -17,10 +17,5 @@ dependencies {
 	compile 'com.fasterxml.jackson.core:jackson-databind:2.5.1'
 	compile 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.5.1'
 	compile 'com.fasterxml.jackson.module:jackson-module-scala_2.11:2.5.1'
-
-	
-	// use strip minor to get the correct version of json4s for the corresponding scala version
-	//compile "org.json4s:json4s-native_${strip_minor(scalaVersion)}:3.2.11"
-	//compile "org.json4s:json4s-jackson_${strip_minor(scalaVersion)}:3.2.11"
 	
 }
