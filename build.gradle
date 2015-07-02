@@ -10,7 +10,7 @@ ext.scalaVersion = "2.11.1"
 dependencies {
 	
 	projDependency ':hnct.lib.utility'
-	prod 'hnct.lib:hnct.lib.utility:1.0.0'
+	prod 'hnct:hnct.lib.utility:1.0.0'
 	
 	// jackson
 	compile 'com.fasterxml.jackson.core:jackson-core:2.5.1'
