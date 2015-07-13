@@ -42,6 +42,11 @@ object Configuration extends Logable {
 		read(Some(defaultFileName), None, resultClass, format)
 	}
 	
+	/**
+	 * Read directly from a file
+	 */
+	def read[T, FormatType <: ConfigurationFormat](f : File, resultClass : Class[T], format : FormatType) : Option[T] = Some(format.readValue(f, resultClass))
+	
 	private def fromName(name : String) : File = {
 		
 		log.info("Creating configuration file {}", name)
