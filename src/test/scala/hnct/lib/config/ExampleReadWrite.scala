@@ -4,7 +4,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
 
-case class Person(name : String, age : Int, contact : List[String])
+case class Person(name : Option[String], age : Int, contact : List[String])
 
 
 // for xml deserialization to work, need java bean style classes when there are collections involves
