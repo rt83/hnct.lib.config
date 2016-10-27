@@ -1,13 +1,14 @@
 package hnct.lib.config
 
-import java.io.File
-import java.io.PrintWriter
+import java.io._
+
 import com.fasterxml.jackson.databind._
 import com.fasterxml.jackson.dataformat.xml._
 import com.fasterxml.jackson.module.scala._
 import ConfigurationFormat._
 import java.net.URISyntaxException
-import java.net.URL;
+import java.net.URL
+
 import hnct.lib.utility.Logable
 
 object Configuration extends Logable {
@@ -25,15 +26,9 @@ object Configuration extends Logable {
 			// throw an exception
 			case _ => throw new RuntimeException("""Cannot find the file name""")
 		}
-			
+
 		// format.readValue is possible because of implicit conversion
-		if (f.exists()) {
-			
-			log.info("File exist! Trying to read the file!")
-			
-			Some(format.readValue(f, resultClass))
-		}
-		else None
+		f.map( stream => format.readValue(stream, resultClass))
 	}
 	
 	def read[T, FormatType <: ConfigurationFormat](defaultFileName : String, resultClass : Class[T], format : FormatType) : Option[T] = {
@@ -47,40 +42,28 @@ object Configuration extends Logable {
 	 */
 	def read[T, FormatType <: ConfigurationFormat](f : File, resultClass : Class[T], format : FormatType) : Option[T] = Some(format.readValue(f, resultClass))
 	
-	private def fromName(name : String) : File = {
+	private def fromName(name : String) : Option[InputStream] = {
 		
-		log.info("Creating configuration file {}", name)
-		
+		log.info("Reading configuration file {}", name)
+
 		var f = new File(name)
 		
 		if (!f.exists()) {	// file not exist, search in class path
 			log.info("File doesn't exist. Look on class path!")
 			
 			val url = Thread.currentThread().getContextClassLoader().getResource(name);
-			
+
 			if (url == null) {
 				
 				log.info("Unable to find the file {} both on disk and on class path!", name)
 				
-				return f;
+				return None;
 				
 			}
-			
-			try {
-				
-				val path = url.toURI().getPath();
-				
-				log.info("Found the file path {}", path)
-				
-				new File(path)
-				
-			} catch { 
-				case e : URISyntaxException => {
-					log.error("Inferring file path from classpath not successful", e)
-					f	
-				}
-			}
-		} else f
+
+			Some(url.openStream())
+
+		} else None
 
 	}
 	
