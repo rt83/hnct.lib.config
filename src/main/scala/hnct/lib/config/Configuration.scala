@@ -63,7 +63,7 @@ object Configuration extends Logable {
 
 			Some(url.openStream())
 
-		} else None
+		} else Some(new FileInputStream(f))
 
 	}
 	
