@@ -46,7 +46,7 @@ object Configuration extends Logable {
 		
 		log.info("Reading configuration file {}", name)
 
-		var f = new File(name)
+		val f = new File(name)
 		
 		if (!f.exists()) {	// file not exist, search in class path
 			log.info("File doesn't exist. Look on class path!")
