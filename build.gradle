@@ -5,16 +5,16 @@
 version = "1.0.0"
 group = "hnct"
 
-ext.scalaVersion = "2.11.8"
+ext.scalaVersion = "2.12.4"
 
 dependencies {
 	
 	projDependency ':hnct.lib.utility', 'hnct:hnct.lib.utility:1.0.0-SNAPSHOT', true
 	
 	// jackson
-	compile 'com.fasterxml.jackson.core:jackson-core:2.7.6'
-	compile 'com.fasterxml.jackson.core:jackson-databind:2.7.6'
-	compile 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.7.6'
-	compile 'com.fasterxml.jackson.module:jackson-module-scala_2.11:2.7.6'
+	compile 'com.fasterxml.jackson.core:jackson-core:2.9.2'
+	compile 'com.fasterxml.jackson.core:jackson-databind:2.9.2'
+	compile 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.9.2'
+	compile 'com.fasterxml.jackson.module:jackson-module-scala_2.12:2.9.2'
 	
 }
