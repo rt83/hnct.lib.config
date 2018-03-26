@@ -1,0 +1,5 @@
+{
+	"name" : "Bird",
+	"age" : 20,
+	"contact" : ["a", "b"]
+}
